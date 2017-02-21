@@ -12,15 +12,15 @@ import java.util.Date;
  * Created by xuyifei on 2017/2/14.
  */
 public class TimeServerHandler extends ChannelHandlerAdapter{
-
+    private int counter = 0;
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws UnsupportedEncodingException {
         try {
             ByteBuf buf = (ByteBuf) msg;
             byte[] req = new byte[buf.readableBytes()];
             buf.readBytes(req);
-            String body = new String(req,"UTF-8");
-            System.out.println("The TimeServer receive order : " + body);
+            String body = new String(req,"UTF-8").substring(0,req.length - System.getProperty("line.separator").length());
+            System.out.println("The TimeServer receive order : " + body + " ; the counter is : "+ ++counter);
             String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body)?new Date(System.currentTimeMillis()).toString():"BAD ORDER";
             ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());
             ctx.write(resp);

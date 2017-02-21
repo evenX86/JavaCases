@@ -37,7 +37,7 @@ public class TimeClient {
 
     }
     public static void main(String[] args) throws InterruptedException {
-        int port = 8080;
+        int port = 8088;
         new TimeClient().connect(port,"127.0.0.1");
 
     }

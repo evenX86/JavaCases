@@ -4,17 +4,18 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.util.internal.SystemPropertyUtil;
 
 /**
  * Created by xuyifei on 2017/2/14.
  */
 public class TimeClientHandler extends ChannelHandlerAdapter{
-    private final ByteBuf firstMEssage;
+    private byte[] req;
+    private int count;
+
 
     public TimeClientHandler() {
-        byte[] req = "QUERY TIME ORDER".getBytes();
-        firstMEssage = Unpooled.buffer(req.length);
-        firstMEssage.writeBytes(req);
+         req = ("QUERY TIME ORDER"+ System.getProperty("line.separator")).getBytes();
     }
 
     /**
@@ -24,7 +25,12 @@ public class TimeClientHandler extends ChannelHandlerAdapter{
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(firstMEssage);//将请求发送给服务端
+        ByteBuf message = null;
+        for (int i=0;i<100;i++) {
+            message = Unpooled.buffer(req.length);
+            message.writeBytes(req);
+            ctx.writeAndFlush(message);//将请求发送给服务端
+        }
 
     }
 
@@ -40,7 +46,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter{
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req,"UTF-8");
-        System.out.println("Now is : " + body);
+        System.out.println("Now is : " + body + " ; the counter is : " + ++count);
     }
 
     @Override
