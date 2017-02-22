@@ -8,6 +8,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 import io.netty.util.internal.SystemPropertyUtil;
 
 /**
@@ -24,12 +26,12 @@ public class TimeClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
+                            socketChannel.pipeline().addLast(new LineBasedFrameDecoder(1024));
+                            socketChannel.pipeline().addLast(new StringDecoder());
                             socketChannel.pipeline().addLast(new TimeClientHandler());
                         }
                     });
-            System.out.println("发起连接");
             ChannelFuture f = b.connect(host,port).sync();//发起异步连接操作
-            System.out.println("连接完成");
             f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully();
@@ -37,7 +39,7 @@ public class TimeClient {
 
     }
     public static void main(String[] args) throws InterruptedException {
-        int port = 8088;
+        int port = 8089;
         new TimeClient().connect(port,"127.0.0.1");
 
     }
