@@ -1,0 +1,26 @@
+Socket选项指定了Java Socket类锁依赖的原生Socket如何发送和接收数据。对于客户端Scoket
+Java支持9种选项:
+
+TCP_NODELAY
+这个参数为true会确保包尽可能快的发送而不用等待远程对前一个包确认。
+
+SO_LINGER
+该选项指定socket关闭连接时如何处理未发送的数据包
+
+SO_TIMEOUT
+可以确保这次调用不会超过指定的时间
+
+SO_RCVBUF 和 SO_SNDBUF
+RCVBUF用来控制网络输入的建议的接收缓冲区大小
+SNDBUF用来控制网络输入的建议的发送缓冲区大小
+
+SO_KEEPALIVE
+打开了KEEPALIVE，客户端会偶尔通过空闲连接发送一个数据包，一般两小时一次，以确保服务器未崩溃，如果服务器没有响应会持续11分钟，如果在1分钟内未收到响应，客户端就关闭Socket。
+
+
+OOBLINLINE
+发送单字节带外紧急数据
+
+
+SO_REUSEADDR
+默认为关闭，如果开启这个端口就允许另一个socket也绑定到这个端口
