@@ -1,7 +1,5 @@
 package com.action.java.se;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by xuyifei on 2017/1/10.
