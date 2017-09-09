@@ -3,17 +3,30 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>com.xyf.jt</artifactId>
-        <groupId>jvmtest</groupId>
+        <artifactId>jvmtest</artifactId>
+        <groupId>com.xyf.jt</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>javacase-web</artifactId>
+    <artifactId>jvmtest-web</artifactId>
 
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
-    
+    <dependencies>
+        <dependency>
+            <groupId>com.xyf.jt</groupId>
+            <artifactId>jvmtest-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <packaging>pom</packaging>
 
 
