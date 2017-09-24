@@ -1,5 +1,6 @@
 package com.spring.test;
 
+import com.spring.test.service.aopcase.TestBeanAopTest;
 import com.spring.test.service.aopcase.TestBeanInterFace;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ public class TestBeanFactory {
 
     @Test
     public void testBeanAop() {
+        System.out.println("before test");
         testBeanInterFace.test();
     }
 
