@@ -1,22 +1,27 @@
 package com.spring.test;
 
-import com.spring.test.service.TestService;
+import com.spring.test.service.aopcase.TestBeanInterFace;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Created by xuyifei on 2017/9/9.
  */
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath*:*.xml")
 public class TestBeanFactory {
 
+    @Autowired
+    TestBeanInterFace testBeanInterFace;
+
+
     @Test
-    public void testBean() {
-        BeanFactory bf = new XmlBeanFactory(new ClassPathResource("beanFactoryTest.xml"));
-        TestService testService = (TestService) bf.getBean("testBean");
-        testService.printS();
-        System.out.println("xx");
+    public void testBeanAop() {
+        testBeanInterFace.test();
     }
+
 }
